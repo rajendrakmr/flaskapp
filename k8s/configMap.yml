@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: configmap
 data:
-  MYSQL_DATABASE: devops
+  MYSQL_DB: devops
   MYSQL_USER: root
   MYSQL_HOST: mysql.default.svc.cluster.local
 
