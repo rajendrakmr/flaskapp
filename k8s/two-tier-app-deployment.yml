@@ -16,16 +16,44 @@ spec:
     spec:
       containers:
         - name: two-tier-app
-          image: trainwithshubham/flaskapp:latest
+          image: rk0617/flaskapp:latest
+          imagePullPolicy: Always
           env:
             - name: MYSQL_HOST
-              value: "10.98.19.211"          # this is your mysql's service clusture IP, Make sure to change it with yours
+              value: "mysql"  # reference the MySQL service name instead of IP
             - name: MYSQL_PASSWORD
-              value: "admin"
+              valueFrom:
+                secretKeyRef:
+                  name: mysecret
+                  key: MYSQL_PASSWORD
             - name: MYSQL_USER
-              value: "root"
-            - name: MYSQL_DB
-              value: "mydb"
+              valueFrom:
+                configMapKeyRef:
+                  name: configmap
+                  key: MYSQL_USER
+            - name: MYSQL_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: configmap
+                  key: MYSQL_DATABASE
           ports:
             - containerPort: 5000
-          imagePullPolicy: Always
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "200m"
+            limits:
+              memory: "512Mi"
+              cpu: "400m"
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 5000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 5000
+            initialDelaySeconds: 15
+            periodSeconds: 20
