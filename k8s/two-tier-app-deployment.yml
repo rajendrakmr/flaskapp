@@ -20,7 +20,10 @@ spec:
           imagePullPolicy: Always
           env:
             - name: MYSQL_HOST
-              value: "mysql"  # reference the MySQL service name instead of IP
+              valueFrom:
+                configMapKeyRef:
+                  name: configmap
+                  key: MYSQL_HOST # reference the MySQL service name instead of IP
             - name: MYSQL_PASSWORD
               valueFrom:
                 secretKeyRef:
