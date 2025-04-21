@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flaskapp
+  namespace: flaskapp-ns
+  labels:
+    name: flaskapp-deploy
+spec:
+  selector:
+    matchLabels:
+      app: flaskapp-deploy
+  template:
+    metadata:
+      labels:
+        app: flaskapp-deploy
+    spec:
+      containers:
+        - name: flaskapp
+          image: rk0617/flaskapp:latest
+          ports:
+            - containerPort: 8000
+          env:
+            - name: MYSQL_HOST
+              valueFrom:
+                configMapKeyRef:
+                  key: MYSQL_HOST
+                  name: myconfig
+            - name: MYSQL_USER
+              valueFrom:
+                configMapKeyRef:
+                  key: MYSQL_USER
+                  name: myconfig
+            - name: MYSQL_DB
+              valueFrom:
+                configMapKeyRef:
+                  key: MYSQL_DB
+                  name: myconfig
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  key: MYSQL_PASSWORD
+                  name: mysecret
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+ 
