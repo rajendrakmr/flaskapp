@@ -8,5 +8,5 @@ spec:
     app: flaskapp-deploy 
   ports:
     - port: 8000
-      targetPort: 8000
+      targetPort: 5000
       protocol: TCP
