@@ -7,4 +7,5 @@ data:
   MYSQL_DATABASE: devops
   MYSQL_USER: root
   MYSQL_DB: devops
-  MYSQL_HOST: mysql-service.flaskapp-ns.cluster.local
+  MYSQL_HOST: mysql-service.flaskapp-ns.svc.cluster.local
+
