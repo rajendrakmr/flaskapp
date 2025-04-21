@@ -36,12 +36,12 @@ spec:
               valueFrom:
                 configMapKeyRef:
                   key: MYSQL_DATABASE
-                  name: mysecret
+                  name: myconfig
             - name: MYSQL_USER
               valueFrom:
                 configMapKeyRef:
                   key: MYSQL_USER
-                  name: mysecret
+                  name: myconfig
 
           volumeMounts:
             - name: mysql-data
