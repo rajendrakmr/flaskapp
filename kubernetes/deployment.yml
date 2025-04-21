@@ -37,7 +37,7 @@ spec:
                   name: myconfig
             - name: MYSQL_PASSWORD
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   key: MYSQL_PASSWORD
                   name: mysecret
           resources:
